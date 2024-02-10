@@ -1,0 +1,14 @@
+<nav class="fixed top-0 w-full bg-[#00113a] text-[#f8f2bf] flex items-center h-16 px-4">
+  <div class="h-full flex justify-center">
+    <button mat-button routerLink="/">Home</button>
+    <button mat-button routerLink="/" (click)="openNavContent('men')">Men</button>
+    <button mat-button routerLink="/" (click)="openNavContent('women')">Women</button>
+    <button mat-button routerLink="/" (click)="openNavContent('Collections')">Collections</button>
+    <button mat-button routerLink="/">About</button>
+  </div>
+  <div class="right-0 fixed">
+    <button mat-icon-button color="primary" (click)="navigateToCart('cart')">
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
+  </div>
+</nav>
