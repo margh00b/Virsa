@@ -1,14 +1,17 @@
-<nav class="fixed top-0 w-full bg-[#00113a] text-[#f8f2bf] flex items-center h-16 px-4">
-  <div class="h-full flex justify-center">
-    <button mat-button routerLink="/">Home</button>
-    <button mat-button routerLink="/" (click)="openNavContent('men')">Men</button>
-    <button mat-button routerLink="/" (click)="openNavContent('women')">Women</button>
-    <button mat-button routerLink="/" (click)="openNavContent('Collections')">Collections</button>
-    <button mat-button routerLink="/">About</button>
+<div class="fixed top-0 w-full bg-night justify-between flex items-center h-[150px] px-10">
+  <div class="h-full py-10">
+    <img class="h-full" src="./assets/logo.png">
   </div>
-  <div class="right-0 fixed">
-    <button mat-icon-button color="primary" (click)="navigateToCart('cart')">
-      <mat-icon>shopping_cart</mat-icon>
+  <div class="flex justify-around w-[40%] text-day text-[20px]">
+    <button *ngFor="let navButton of navButtons" (click)="navButton.clickHandler?.()"
+            class="flex px-2.5">
+      {{navButton.label}}
+      <fa-icon [icon]="angleDown" *ngIf="navButton.submenu" class="text-[20px] text-day ml-5"></fa-icon>
     </button>
   </div>
-</nav>
+  <div class="right-12 flex">
+    <button (click)="navigateToCart('cart')">
+      <fa-icon [icon]="cart" class="text-[22px] text-day"></fa-icon>
+    </button>
+  </div>
+</div>
