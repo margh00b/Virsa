@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { faCartShopping, faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { NavButton } from './navButtons.interface';
-import { NgForOf, NgIf } from '@angular/common';
-
+import { NgClass, NgForOf, NgIf, NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -14,27 +13,68 @@ import { NgForOf, NgIf } from '@angular/common';
     FaIconComponent,
     NgForOf,
     NgIf,
+    NgOptimizedImage,
+    NgClass,
   ],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-  constructor() {
-  }
-  navButtons : NavButton[] = [
-    { label: 'Home', submenu : false},
-    { label: 'Men', submenu : true, clickHandler: () => this.openNavContent('Men')},
-    { label: 'Women', submenu : true, clickHandler: () => this.openNavContent('Women')},
-    { label: 'Collections', submenu : true, clickHandler: () => this.openNavContent('Collections')},
-    { label: 'About', submenu : false}
-    ];
+  constructor() {}
+  navButtons: NavButton[] = [
+    { label: 'Home', submenu: false },
+    {
+      label: 'Men',
+      submenu: true,
+      isSubmenuOpen: false,
+      clickHandler: () => this.openNavContent('Men'),
+      submenuContent: [
+        { label: 'Stole', submenu: false },
+        { label: 'Jackets', submenu: false },
+      ],
+    },
+    {
+      label: 'Women',
+      submenu: true,
+      isSubmenuOpen: false,
+      clickHandler: () => this.openNavContent('Women'),
+      submenuContent: [
+        { label: 'Jackets', submenu: false },
+        { label: 'Suits', submenu: false },
+        { label: 'Stole', submenu: false },
+        { label: 'Saree', submenu: false },
+        { label: 'Kani', submenu: false },
+        { label: 'Ethnic Weave', submenu: false },
+        { label: 'Luxury Heritage', submenu: false },
+      ],
+    },
+    {
+      label: 'Collections',
+      submenu: false,
+      clickHandler: () => this.openNavContent('Collections'),
+    },
+    { label: 'About', submenu: false },
+  ];
   cart = faCartShopping;
   angleDown = faAngleDown;
 
-  openNavContent(navMenu:string) {
+  toggleSubMenu(navButton: NavButton) {
+    this.navButtons.forEach((button) => {
+      if (button === navButton) {
+        button.isSubmenuOpen = !button.isSubmenuOpen;
+      } else {
+        button.isSubmenuOpen = false;
+      }
+    });
+  }
+  submenuMouseOut(navButton: NavButton) {
+    navButton.isSubmenuOpen = false;
+  }
+
+  openNavContent(navMenu: string) {
     console.log('open nav menu', navMenu);
   }
-  navigateToCart(path:string) {
-    console.log('navigate to cart');
+  navigateToCart(path: string) {
+    console.log('navigate to cart', path);
   }
 }

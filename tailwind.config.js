@@ -4,11 +4,11 @@ module.exports = {
   theme: {
     extend: {},
     colors: {
-      'day': '#dfd7cf',
       'night': '#192428',
       'dusk': '#22333b',
+      'wood': '#5e503f',
       'sand': '#a9927d',
-      'wood': '#5e503f'
+      'day': '#dfd7cf'
     },
   },
   plugins: [],

@@ -1,13 +1,43 @@
-<div class="fixed top-0 w-full bg-night justify-between flex items-center h-[150px] px-10">
+<div
+  class="fixed top-0 w-full bg-night justify-between flex items-center h-[150px] px-10"
+>
   <div class="h-full py-10">
-    <img class="h-full" src="./assets/logo.png">
+    <img class="h-full" src="./assets/logo.png" alt="logo" />
   </div>
   <div class="flex justify-around w-[40%] text-day text-[20px]">
-    <button *ngFor="let navButton of navButtons" (click)="navButton.clickHandler?.()"
-            class="flex px-2.5">
-      {{navButton.label}}
-      <fa-icon [icon]="angleDown" *ngIf="navButton.submenu" class="text-[20px] text-day ml-5"></fa-icon>
-    </button>
+    <ng-container *ngFor="let navButton of navButtons">
+      <div class="relative">
+        <button
+          (click)="toggleSubMenu(navButton)"
+          class="flex px-2.5 border-b-2 border-opacity-0 border-b-day hover:border-opacity-100"
+        >
+          {{ navButton.label }}
+          <fa-icon
+            [icon]="angleDown"
+            *ngIf="navButton.submenu"
+            class="text-[20px] text-day ml-2"
+          ></fa-icon>
+        </button>
+        <div
+          *ngIf="navButton.submenu"
+          class="overflow-hidden ease-out duration-[0.5s] transition-[max-height] h-auto border-l-day border-l-[2px] pl-[5px] absolute bg-night text-day w-[200%] mt-5"
+          [ngClass]="{
+            'max-h-[500px]': navButton.isSubmenuOpen,
+            'max-h-0': !navButton.isSubmenuOpen
+          }"
+        >
+          <div (mouseleave)="submenuMouseOut(navButton)">
+            <button
+              *ngFor="let subContent of navButton.submenuContent"
+              (click)="subContent.clickHandler?.()"
+              class="flex px-2.5 py-5 w-full hover:pl-5 ease-out duration-[0.3s] transition-[padding-left]"
+            >
+              {{ subContent.label }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
   </div>
   <div class="right-12 flex">
     <button (click)="navigateToCart('cart')">
